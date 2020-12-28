@@ -2,36 +2,46 @@
   <div class="wrapper">
     <div class="left__content">
       <Header
-      @handleCountryChange="handleCountryChange"
+        @handleCountryChange="handleCountryChange"
+        @change="getCovidData"
       />
       <div class="card__wrapper">
         <InfoBox 
         title="Coronavirus Cases"
-        cases=123123
-        total=20000
+        :cases='setCountryJson.todayCases'
+        :total='setCountryJson.cases'
         />
         <InfoBox 
         title="Recovered"
-        cases=123123
-        total=20000
+        :cases='setCountryJson.recovered'
+        :total='setCountryJson.todayRecovered'
         />
         <InfoBox
         title="Deaths"
-        cases=123123
-        total=20000
+        :cases='setCountryJson.deaths'
+        :total='setCountryJson.todayDeaths'
         />
       </div>
       <Map />
       <h1>{{ setCountry }}</h1>
     </div>
     <div class="right__content">
+      <h1> Live cases by country: </h1>
       <Table />
+      <h1> Worlwide new cases: </h1>
       <Graph />
     </div>
+  </div>
+  <div>
+    {{ setCountryJson }}
   </div>
 </template>
 
 <script>
+// Import axios for fetching data for covid-19
+import axios from 'axios'
+
+// Import UI components
 import  Header  from './components/Header/Header.vue'
 import InfoBox from './components/InfoBox/InfoBox.vue'
 import Map from './components/Map/Map.vue'
@@ -50,13 +60,36 @@ export default {
   data: function(){
       return {
           setCountry: 'all',
-          TotalCases:'Total Cases'
+          setCountryJson: {}
       }
+  },
+  mounted(){
+    const url ='https://disease.sh/v3/covid-19/all'
+
+    axios.get(url)
+      .then(response =>{
+        return response.data
+      })
+      .then(data => {
+        this.setCountryJson = data
+      })
   },
   methods:{
     handleCountryChange(event){
       const { value } = event.target;
       this.setCountry = value
+    },
+    getCovidData(){
+      const url = this.setCountry === 'all' ? 'https://disease.sh/v3/covid-19/all' : `https://disease.sh/v3/covid-19/countries/${this.setCountry}`
+      console.log(url)
+
+      axios.get(url)
+        .then(response =>{
+          return response.data
+        })
+        .then(data => {
+          this.setCountryJson = data
+        })
     }
   }
 }

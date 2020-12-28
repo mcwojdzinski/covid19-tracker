@@ -2,7 +2,7 @@
     <div class="card">
         <h1>{{ title }}</h1>
         <p>{{cases}}</p>
-        <p>{{total}}</p>
+        <p>{{total}} Total</p>
     </div>
 </template>
 <script>
