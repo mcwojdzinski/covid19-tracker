@@ -1,6 +1,6 @@
 <template>
     <div class="app__header">
-        <h1> COVID-19 Tracker </h1>
+        <h1> COVID-19 TRACKER 🦠🧬</h1>
         <select
             v-model="selectedCountry"
             @input="(event) => this.$emit('handleCountryChange', event)">
