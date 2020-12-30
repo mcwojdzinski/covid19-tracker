@@ -8,32 +8,28 @@
       <div class="card__wrapper">
         <InfoBox 
         title="Coronavirus Cases"
-        :cases='setCountryJson.todayCases'
-        :total='setCountryJson.cases'
+        :cases='countryInfo.todayCases'
+        :total='countryInfo.cases'
         />
         <InfoBox 
         title="Recovered"
-        :cases='setCountryJson.recovered'
-        :total='setCountryJson.todayRecovered'
+        :cases='countryInfo.todayRecovered'
+        :total='countryInfo.recovered'
         />
         <InfoBox
         title="Deaths"
-        :cases='setCountryJson.deaths'
-        :total='setCountryJson.todayDeaths'
+        :cases='countryInfo.todayDeaths'
+        :total='countryInfo.deaths'
         />
       </div>
       <Map />
-      <h1>{{ setCountry }}</h1>
     </div>
     <div class="right__content">
       <h1> Live cases by country: </h1>
-      <Table />
+      <Table :countries='tableData' />
       <h1> Worlwide new cases: </h1>
       <Graph />
     </div>
-  </div>
-  <div>
-    {{ setCountryJson }}
   </div>
 </template>
 
@@ -60,18 +56,29 @@ export default {
   data: function(){
       return {
           setCountry: 'all',
-          setCountryJson: {}
+          countryInfo: {},
+          tableData: [],
+          setTableData: []
       }
   },
   mounted(){
     const url ='https://disease.sh/v3/covid-19/all'
+    const url2 = 'https://disease.sh/v3/covid-19/countries'
+
+    axios.get(url2)
+      .then(response => {
+        return response.data
+      })
+      .then(data =>{
+        this.tableData = data.sort((a,b) => {return b.cases - a.cases})
+      })
 
     axios.get(url)
       .then(response =>{
         return response.data
       })
       .then(data => {
-        this.setCountryJson = data
+        this.countryInfo = data
       })
   },
   methods:{
@@ -81,14 +88,13 @@ export default {
     },
     getCovidData(){
       const url = this.setCountry === 'all' ? 'https://disease.sh/v3/covid-19/all' : `https://disease.sh/v3/covid-19/countries/${this.setCountry}`
-      console.log(url)
 
       axios.get(url)
         .then(response =>{
           return response.data
         })
         .then(data => {
-          this.setCountryJson = data
+          this.countryInfo = data
         })
     }
   }
@@ -100,18 +106,22 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Monospace', sans-serif;
   }
 
   .wrapper{
+    padding: 40px;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: auto;
 
     @media (min-width: 1440px){
       flex-direction: row;
     }
 
     .left__content{
-      width: 100vw;
+      width: 100%;
 
       @media (min-width: 1440px){
         width: 70vw;
@@ -119,7 +129,11 @@ export default {
     }
 
     .right__content{
-      width: 100vw;
+      width: 100%;
+
+      h1{
+        padding: 10px 0;
+      }
 
       @media (min-width: 1440px){
         width: 30vw;
