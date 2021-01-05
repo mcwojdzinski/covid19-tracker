@@ -8,18 +8,18 @@
       <div class="card__wrapper">
         <InfoBox 
         title="Coronavirus Cases"
-        :cases='countryInfo.todayCases'
-        :total='countryInfo.cases'
+        :cases='formatDigits(countryInfo.todayCases)'
+        :total='formatDigits(countryInfo.cases)'
         />
         <InfoBox 
         title="Recovered"
-        :cases='countryInfo.todayRecovered'
-        :total='countryInfo.recovered'
+        :cases='formatDigits(countryInfo.todayRecovered)'
+        :total='formatDigits(countryInfo.recovered)'
         />
         <InfoBox
         title="Deaths"
-        :cases='countryInfo.todayDeaths'
-        :total='countryInfo.deaths'
+        :cases='formatDigits(countryInfo.todayDeaths)'
+        :total='formatDigits(countryInfo.deaths)'
         />
       </div>
       <Map />
@@ -27,8 +27,6 @@
     <div class="right__content">
       <h1> Live cases by country: </h1>
       <Table :countries='tableData' />
-      <h1> Worlwide new cases: </h1>
-      <Graph />
     </div>
   </div>
 </template>
@@ -42,7 +40,6 @@ import  Header  from './components/Header/Header.vue'
 import InfoBox from './components/InfoBox/InfoBox.vue'
 import Map from './components/Map/Map.vue'
 import Table from './components/Table/Table.vue'
-import Graph from './components/Graph/Graph.vue'
 
 export default {
   name: 'App',
@@ -50,8 +47,7 @@ export default {
     Header,
     InfoBox,
     Map,
-    Table,
-    Graph
+    Table
   },
   data: function(){
       return {
@@ -96,6 +92,9 @@ export default {
         .then(data => {
           this.countryInfo = data
         })
+    },
+    formatDigits(number){
+      return new Intl.NumberFormat('en-US').format(number);
     }
   }
 }
@@ -122,6 +121,7 @@ export default {
 
     .left__content{
       width: 100%;
+      padding: 20px;
 
       @media (min-width: 1440px){
         width: 70vw;
@@ -130,6 +130,7 @@ export default {
 
     .right__content{
       width: 100%;
+      padding: 20px;
 
       h1{
         padding: 10px 0;

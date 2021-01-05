@@ -1,8 +1,8 @@
 <template>
     <table>
         <tr v-for="country in countries" :key="country">
-            <td> {{ country.country}} </td>
-            <td><strong> {{ country.cases }} </strong></td>
+            <td> {{ country.country }}  </td>
+            <td><strong> {{ formatDigits(country.cases) }} </strong></td>
         </tr>
     </table>
 </template>
@@ -11,6 +11,11 @@ export default {
     name: "Table",
     props: {
         countries: String,
+    },
+    methods:{
+        formatDigits: function(number){
+            return new Intl.NumberFormat('en-US').format(number);
+        }
     }
 }
 </script>

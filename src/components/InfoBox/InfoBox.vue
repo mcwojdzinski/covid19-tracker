@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <h1>{{ title }}</h1>
-        <p>{{cases}}</p>
+        <p> + {{cases}}</p>
         <p>{{total}} Total</p>
     </div>
 </template>
