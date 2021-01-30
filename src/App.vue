@@ -7,16 +7,25 @@
       />
       <div class="card__wrapper">
         <InfoBox 
+        @click="this.selectedType = 'cases'"
+        :active="this.selectedType === 'cases'"
+        :type="this.selectedType"
         title="Coronavirus Cases"
         :cases='formatDigits(countryInfo.todayCases)'
         :total='formatDigits(countryInfo.cases)'
         />
         <InfoBox 
+        @click="this.selectedType = 'recovered'"
+        :active="this.selectedType === 'recovered'"
+        :type="this.selectedType"
         title="Recovered"
         :cases='formatDigits(countryInfo.todayRecovered)'
         :total='formatDigits(countryInfo.recovered)'
         />
         <InfoBox
+        @click="this.selectedType = 'deaths'"
+        :active="this.selectedType === 'deaths'"
+        :type="this.selectedType"
         title="Deaths"
         :cases='formatDigits(countryInfo.todayDeaths)'
         :total='formatDigits(countryInfo.deaths)'
@@ -26,6 +35,7 @@
         :countries='tableData'
         :setMapCenter='setMapCenter'
         :setMapZoom='setMapZoom'
+        :selectedType = 'selectedType'
       />
     </div>
     <div class="right__content">
@@ -58,6 +68,7 @@ export default {
           setCountry: 'all',
           countryInfo: {},
           tableData: [],
+          selectedType: "cases",
           setMapCenter: [30,12],
           setMapZoom: 2
       }
@@ -125,7 +136,7 @@ export default {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: auto;
+    height: 100vh;
 
     @media (min-width: 1440px){
       flex-direction: row;
@@ -157,5 +168,9 @@ export default {
   .card__wrapper{
     display: flex;
     flex-direction: row;
+  }
+
+  .cases{
+    border-bottom: 10px;
   }
 </style>

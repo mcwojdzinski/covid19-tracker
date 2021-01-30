@@ -11,22 +11,18 @@
       <l-circle
         v-for="country in countries" :key="country"
         :lat-lng="[country.countryInfo.lat, country.countryInfo.long]"
-        :radius="setRadius(country.cases, circleCases.multiplayer)"
-        :color="circleRecovered.color"
+        :radius="setRadius(country, selectedType)"
+        :color="handleInfoBoxChange(selectedType)"
         :fill="true"
-        :fillColor="circleRecovered.color"
+        :fillColor="handleInfoBoxChange(selectedType)"
         :fillOpacity="0.2"
       >
-        <l-popup>
-          <div>
-            <div>
-              <img :src="country.countryInfo.flag" width="50" heigh="50"/>
-            </div>
-            <h3> {{country.country }} </h3>
-          </div>
-          <p>Cases: {{ formatDigits(country.cases) }}</p>
-          <p>Recovered: {{ formatDigits(country.recovered) }}</p>
-          <p>Deaths: {{ formatDigits(country.deaths) }}</p>
+        <l-popup class="popup">
+          <img :src="country.countryInfo.flag" class="popup-flag"/>
+          <h3 class="popup-countryName"> {{country.country }} </h3>
+          <p class="popup-cases">Cases: {{ formatDigits(country.cases) }}</p>
+          <p class="popup-recovered">Recovered: {{ formatDigits(country.recovered) }}</p>
+          <p class="popup-info">Deaths: {{ formatDigits(country.deaths) }}</p>
         </l-popup>
       </l-circle>
     </l-map>
@@ -56,30 +52,50 @@ export default {
   props:{
     setMapCenter: Array,
     setMapZoom: Number,
-    countries: String
+    countries: String,
+    selectedType: String
   },
   data() {
     return {
       circleCases: {
         color: '#CC1034',
-        multiplayer: 800,
+        multiplayer: 500,
       },
       circleRecovered:{
         color: '#7dd71d',
-        multiplayer: 1200
+        multiplayer: 900
       },
       circleDeaths:{
         color: '#fb4443',
-        multiplayer: 2000
+        multiplayer: 1800
       }
     };
   },
   methods:{
-    setRadius(country, multiplayer){
-      return Math.sqrt(JSON.stringify(country)) * multiplayer / 2
+    setRadius(country, type){
+      if(type === "cases"){
+        return Math.sqrt(JSON.stringify(country.cases)) * this.circleCases.multiplayer / 2
+      }
+      else if(type === "recovered"){
+        return Math.sqrt(JSON.stringify(country.recovered)) * this.circleRecovered.multiplayer / 2
+      }
+      else if(type === "deaths"){
+        return Math.sqrt(JSON.stringify(country.deaths)) * this.circleDeaths.multiplayer / 2
+      }
     },
     formatDigits(number){
       return new Intl.NumberFormat('en-US').format(number);
+    },
+    handleInfoBoxChange(type){
+      if(type === "cases"){
+        return this.circleCases.color
+      }
+      else if(type === "recovered"){
+        return this.circleRecovered.color
+      }
+      else if(type === "deaths"){
+        return this.circleDeaths.color
+      }
     }
   }
 };
@@ -93,5 +109,24 @@ export default {
         margin-top: 16px;
         padding: 1rem;
         box-shadow: 0 0 8px -4px rgba(0,0,0,0.5);
+    }
+
+    .popup{
+      width: 150px;
+
+      &-flag{
+        width: 100%;
+        border-radius: 15px;
+      }
+
+      &-countryName{
+        font-size: 1.5rem;
+      }
+
+      &-cases, &-recovered, &-info{
+        font-size: 14px;
+        margin-top: 5px !important;
+        margin-bottom: 5px !important;
+      }
     }
 </style>
