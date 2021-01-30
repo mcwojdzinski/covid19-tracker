@@ -22,7 +22,11 @@
         :total='formatDigits(countryInfo.deaths)'
         />
       </div>
-      <Map />
+      <Map
+        :countries='tableData'
+        :setMapCenter='setMapCenter'
+        :setMapZoom='setMapZoom'
+      />
     </div>
     <div class="right__content">
       <h1> Live cases by country: </h1>
@@ -54,7 +58,8 @@ export default {
           setCountry: 'all',
           countryInfo: {},
           tableData: [],
-          setTableData: []
+          setMapCenter: [30,12],
+          setMapZoom: 2
       }
   },
   mounted(){
@@ -91,6 +96,13 @@ export default {
         })
         .then(data => {
           this.countryInfo = data
+          if(this.setCountry === 'all'){
+            this.setMapCenter = [30,12]
+            this.setMapZoom = 2
+          } else {
+            this.setMapCenter = [data.countryInfo.lat, data.countryInfo.long]
+            this.setMapZoom = 5
+          }
         })
     },
     formatDigits(number){
