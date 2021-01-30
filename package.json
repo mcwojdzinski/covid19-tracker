@@ -1,5 +1,5 @@
 {
-  "name": "Coronavirus Tracker",
+  "name": "covid19-tracker",
   "version": "0.1.0",
   "private": true,
   "scripts": {

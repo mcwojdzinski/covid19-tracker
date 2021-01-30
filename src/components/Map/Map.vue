@@ -16,7 +16,19 @@
         :fill="true"
         :fillColor="circleRecovered.color"
         :fillOpacity="0.2"
-      />
+      >
+        <l-popup>
+          <div>
+            <div>
+              <img :src="country.countryInfo.flag" width="50" heigh="50"/>
+            </div>
+            <h3> {{country.country }} </h3>
+          </div>
+          <p>Cases: {{ formatDigits(country.cases) }}</p>
+          <p>Recovered: {{ formatDigits(country.recovered) }}</p>
+          <p>Deaths: {{ formatDigits(country.deaths) }}</p>
+        </l-popup>
+      </l-circle>
     </l-map>
   </div>
 </template>
@@ -26,7 +38,8 @@ import {
   LMap,
   LTileLayer,
   LCircle,
-  LControlLayers
+  LControlLayers,
+  LPopup
 } from "@vue-leaflet/vue-leaflet";
 
 // Import default css for the
@@ -37,7 +50,8 @@ export default {
     LMap,
     LTileLayer,
     LCircle,
-    LControlLayers
+    LControlLayers,
+    LPopup
   },
   props:{
     setMapCenter: Array,
@@ -63,6 +77,9 @@ export default {
   methods:{
     setRadius(country, multiplayer){
       return Math.sqrt(JSON.stringify(country)) * multiplayer / 2
+    },
+    formatDigits(number){
+      return new Intl.NumberFormat('en-US').format(number);
     }
   }
 };
