@@ -1,5 +1,5 @@
 {
-  "name": "covid19-tracker",
+  "name": "Coronavirus Tracker",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vue-leaflet/vue-leaflet": "^0.5.0",
+    "leaflet": "^1.7.1",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "vue": "^3.0.0"
