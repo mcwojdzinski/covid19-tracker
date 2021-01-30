@@ -50,7 +50,7 @@
 import axios from 'axios'
 
 // Import UI components
-import  Header  from './components/Header/Header.vue'
+import Header from './components/Header/Header.vue'
 import InfoBox from './components/InfoBox/InfoBox.vue'
 import Map from './components/Map/Map.vue'
 import Table from './components/Table/Table.vue'
