@@ -52,9 +52,27 @@ export default {
 <style lang="scss">
     .app__header{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        text-align: center;
         align-items: center;
         margin-bottom: 20px;
         justify-content: space-between;
+        font-size: 12px;
+
+        @media(min-width:1024px){
+            font-size: 1.2rem;
+        }
+        h1{
+            margin-bottom: 10px;
+        }
+
+        select{
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        @media (min-width: 1024px){
+            flex-direction: row;
+        }
     }
 </style>

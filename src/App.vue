@@ -132,7 +132,7 @@ export default {
   }
 
   .wrapper{
-    padding: 40px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -145,6 +145,15 @@ export default {
     .left__content{
       width: 100%;
       padding: 20px;
+
+      .card__wrapper{
+        width: 100%;
+        flex-direction: column;
+
+        @media(min-width: 1024px){
+          flex-direction: row;
+        }
+      }
 
       @media (min-width: 1440px){
         width: 70vw;

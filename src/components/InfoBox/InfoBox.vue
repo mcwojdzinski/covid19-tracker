@@ -37,18 +37,30 @@ export default {
 </script>
 <style lang="scss">
     .card{
-        width: 33.333%;
-        height: 20vh;
+        width: 100%;
+        height: 30vh;
         background-color: white;
         box-shadow: 0 0 8px -4px rgba(0,0,0,0.5);
         margin: 5px;
-        padding: 20px 15px;
+        padding: 20px;
         border-radius: 10px;
         transition: 0.2s;
         cursor: pointer;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+
+        @media (min-width: 1024px){
+            width: 33%;
+            height: 20vh;
+        }
+        
+        h1{
+            font-size: 1.7rem;
+            @media(min-width:1024px){
+                font-size: 2rem;
+            }
+        }
 
         &--cases{
             margin-top: 5px;
