@@ -18,11 +18,11 @@ It is simply single page application to show coronavirus active cases, recoverie
 To install the project all you need is to download the repository and simply type ``` yarn install ``` to download all dependencies needed to run the project. For that you will need Node.js in version 14.15 or latest and yarn for version 6.14 or latest.
 ## Available scripts
 
-| Command                   | Description                   |     |
-| ------------------------- | ----------------------------- | --- |
-| `yarn serve`           | Compiles and hot-reloads for development            |     |
-| `yarn build`           | Compiles and minifies for production        |     |
-| `yarn lint`            | Lints and fixes files                    |     |
+| Command                   | Description                   |
+| ------------------------- | ----------------------------- |
+| `yarn serve`           | Compiles and hot-reloads for development            |
+| `yarn build`           | Compiles and minifies for production        |
+| `yarn lint`            | Lints and fixes files                    |
 
 ## Live 📍
 Here is the link for the live version of the application:
