@@ -74,10 +74,10 @@ export default {
   methods:{
     setRadius(country, type){
       if(type === "cases"){
-        return Math.sqrt(JSON.stringify(country.cases)) * this.circleCases.multiplayer / 2
+        return Math.sqrt(JSON.stringify(country.cases)) * this.circleCases.multiplayer / 4
       }
       else if(type === "recovered"){
-        return Math.sqrt(JSON.stringify(country.recovered)) * this.circleRecovered.multiplayer / 2
+        return Math.sqrt(JSON.stringify(country.recovered)) * this.circleRecovered.multiplayer / 3
       }
       else if(type === "deaths"){
         return Math.sqrt(JSON.stringify(country.deaths)) * this.circleDeaths.multiplayer / 2
